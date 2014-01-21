@@ -1,14 +1,13 @@
 class CreateUserEvents < ActiveRecord::Migration
   def change
     create_table :user_events do |t|
-      t.integer :id
-      t.string :user_id
+      t.references :user, index: true
       t.integer :shared_id
       t.string :name
       t.string :location
-      t.integer :time
-      t.int :min
-      t.int :max
+      t.time :time
+      t.integer :min
+      t.integer :max
 
       t.timestamps
     end
