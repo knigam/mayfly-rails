@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  user_id: MyString
+  shared_id: 1
+  name: MyString
+  location: MyString
+  time: 1
+  min: 
+  max: 
+
+two:
+  id: 1
+  user_id: MyString
+  shared_id: 1
+  name: MyString
+  location: MyString
+  time: 1
+  min: 
+  max: 
