@@ -43,6 +43,8 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+gem 'execjs'
+gem 'therubyracer'
 gem 'rails_12factor', group: :production
 ruby "2.1.0"
 gem 'unicorn'
