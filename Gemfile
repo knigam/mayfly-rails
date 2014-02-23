@@ -50,3 +50,4 @@ ruby "2.1.0"
 gem 'unicorn'
 gem 'push-core'
 gem 'push-gcm'
+gem 'devise'
