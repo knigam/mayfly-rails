@@ -1,4 +1,21 @@
 class RegistrationsController < Devise::RegistrationsController
-	skip_before_filter :verify_authenticity_token, :only => :create
-	respond_to :json
+  skip_before_filter :verify_authenticity_token #, :only => :create
+  respond_to :json
+
+  def create
+    build_resource(sign_up_params)
+
+    if resource.save
+      yield resource if block_given?
+      if resource.active_for_authentication?
+        sign_up(resource_name, resource)
+	return render :json => {:success => "true", :id => resource.id, :email => resource.email, :message => "User Created"}
+      else
+	return render :json => {:success => "false", :error => "Signed up but inactive"}
+      end
+    else
+      clean_up_passwords resource
+      return render :json => {:success => "false", :error => "Username is already in use"}
+    end
+  end 
 end

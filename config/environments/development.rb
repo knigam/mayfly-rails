@@ -28,5 +28,5 @@ Mayfly::Application.configure do
   config.assets.debug = true
 
   #default url for Devise mailer
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end
