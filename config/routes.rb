@@ -8,6 +8,12 @@ Mayfly::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
+  
+  #Routes for devices
+  post 'devices/create'=> 'devices#create'
+  post 'devices/update' => 'devices#update'
+  post 'devices/destroy' => 'devices#destroy'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
