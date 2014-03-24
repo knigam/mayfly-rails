@@ -17,5 +17,13 @@ class RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       return render :json => {:success => "false", :error => "Username is already in use"}
     end
-  end 
+  end
+  
+  def destroy
+		user = current_user
+		if user.destroy
+			return render :json => {:success => "true"}
+		else
+			return render :json => {:success => "false"}
+	end	
 end

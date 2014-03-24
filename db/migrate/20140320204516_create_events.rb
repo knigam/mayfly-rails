@@ -9,12 +9,5 @@ class CreateEvents < ActiveRecord::Migration
       t.integer :max
       t.timestamps
     end
-
-    create_table :events_users, id: false do |t|
-      t.belongs_to :user
-      t.belongs_to :event
-
-      t.timestamps
-    end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320204516) do
+ActiveRecord::Schema.define(version: 20140321152933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,9 +39,17 @@ ActiveRecord::Schema.define(version: 20140320204516) do
     t.datetime "updated_at"
   end
 
-  create_table "events_users", id: false, force: true do |t|
+  create_table "friendships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "invites", force: true do |t|
     t.integer  "user_id"
     t.integer  "event_id"
+    t.boolean  "attending"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -88,20 +96,6 @@ ActiveRecord::Schema.define(version: 20140320204516) do
   end
 
   add_index "push_messages", ["delivered", "failed", "deliver_after"], name: "index_push_messages_on_delivered_and_failed_and_deliver_after", using: :btree
-
-  create_table "user_events", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "shared_id"
-    t.string   "name"
-    t.string   "location"
-    t.time     "time"
-    t.integer  "min"
-    t.integer  "max"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_events", ["user_id"], name: "index_user_events_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

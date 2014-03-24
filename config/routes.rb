@@ -10,9 +10,21 @@ Mayfly::Application.routes.draw do
   root 'welcome#index'
   
   #Routes for devices
-  post 'devices/create'=> 'devices#create'
+	post 'devices/create'=> 'devices#create'
   post 'devices/update' => 'devices#update'
   post 'devices/destroy' => 'devices#destroy'
+	
+	#Routes for friendships
+	post 'friendships/create' => 'friendships#create'
+	post 'friendships/destroy' => 'friendships#destroy'
+
+	#Routes for events
+	post 'events/create' => 'events#create'
+	post 'events/destroy' => 'events#destroy'
+
+	#Routes for invites
+	post 'invites/create' => 'invites#create'
+	post 'invites/destroy' => 'invites#destroy'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
