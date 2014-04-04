@@ -12,7 +12,7 @@ class EventsController < ApplicationController
 	end
 	
 	def destroy
-		@event = event.find(params[:event_id])
+		@event = current_user.events.find(params[:event_id])
 		if @event.destroy
 			return render :json => {:success => "true"}
 		else

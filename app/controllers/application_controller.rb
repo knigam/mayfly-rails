@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     if current_user
       return render :json => {:success => "true", :email => current_user.email, :authenticity_token => form_authenticity_token}
     else
-      return render :json => {:false => "false", :error => "User is not signed in", :authenticity_token => form_authenticity_token}
+      return render :json => {:success => "false", :error => "User is not signed in", :authenticity_token => form_authenticity_token}
     end
   end
 end

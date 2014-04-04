@@ -20,11 +20,10 @@ Mayfly::Application.routes.draw do
 
 	#Routes for events
 	post 'events/create' => 'events#create'
-	post 'events/destroy' => 'events#destroy'
 
 	#Routes for invites
 	post 'invites/create' => 'invites#create'
-	post 'invites/destroy' => 'invites#destroy'
+	post 'invites/update' => 'invites#update'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

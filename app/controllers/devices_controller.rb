@@ -3,7 +3,7 @@ class DevicesController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    device = Device.new(device_params)
+    device = current_user.devices.build(device_params)
     if device.save
       return render :json => {:success => "true", :id => device.id, :message => "Device registered"}
     else
@@ -17,7 +17,7 @@ class DevicesController < ApplicationController
   end
   
   def update
-    device = Device.where(params[:reg_id]).first
+    device = current_user.devices.where(params[:reg_id]).first
 
     if device.update(device_params)
       return render :json => {:success => "true", :id => device.id, :message => "Device registration updated"}
@@ -27,7 +27,7 @@ class DevicesController < ApplicationController
   end
 
   def destroy
-    device = Device.where(params[:reg_id]).first
+    device = current_user.devices.where(params[:reg_id]).first
     if device.destroy
       return render :json => {:success => "true", :message => "Device unregistered"}
     else
@@ -37,6 +37,6 @@ class DevicesController < ApplicationController
 
   private
     def device_params
-      params.require(:device).permit(:reg_id, :user_id, :type, :latitude, :longitude)
+      params.require(:device).permit(:reg_id, :type, :latitude, :longitude)
     end
 end

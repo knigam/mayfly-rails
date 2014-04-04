@@ -1,12 +1,12 @@
 class SessionsController < Devise::SessionsController
   skip_before_filter :verify_authenticity_token #, :only => [:create, :failure]
-  respond_to :json
+  before_filter :authenticate_user!, :only => :destroy
+	respond_to :json
   
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     yield resource if block_given?
     sign_in(resource_name, resource)
-    #resource.remember_me!(extend_period = true)
     cookie = User.serialize_into_cookie(resource)
     return render :json => {:success => "true", :id => resource.id, :email => resource.email, :message => "Signed in"}
   end
