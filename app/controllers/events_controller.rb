@@ -4,7 +4,8 @@ class EventsController < ApplicationController
 	def create
 		@event = current_user.events.build(event_params)
 		if @event.save
-		  current_user.invites.build(:event_id => @event.id, :attending => true)
+		  invite = current_user.invites.build(:event_id => @event.id, :attending => true, :master => true)
+			invite.save
 			return render :json => {:success => "true", :event_id => @event.id}
 		else
 			return render :json => {:success => "false", :message => "Could not save event"}

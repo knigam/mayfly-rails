@@ -18,4 +18,10 @@ class FriendshipsController < ApplicationController
 			return render :json => {:success => 'false'}
 		end
 	end
+	
+	def show
+    friends_list = current_user.friends.map{|f| {id: f.id, name: f.email}}
+		json = JSON.generate friends_list
+		return render :json => {:friends => json}
+	end
 end

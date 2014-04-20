@@ -17,6 +17,7 @@ Mayfly::Application.routes.draw do
 	#Routes for friendships
 	post 'friendships/create' => 'friendships#create'
 	post 'friendships/destroy' => 'friendships#destroy'
+  get 'friendships' => 'friendships#show'
 
 	#Routes for events
 	post 'events/create' => 'events#create'
@@ -24,8 +25,9 @@ Mayfly::Application.routes.draw do
 	#Routes for invites
 	post 'invites/create' => 'invites#create'
 	post 'invites/update' => 'invites#update'
-
-  # Example of regular route:
+	get 'invites' => 'invites#show'
+  
+	# Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
