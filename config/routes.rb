@@ -15,9 +15,9 @@ Mayfly::Application.routes.draw do
   post 'devices/destroy' => 'devices#destroy'
 	
 	#Routes for friendships
-	post 'friendships/create' => 'friendships#create'
-	post 'friendships/destroy' => 'friendships#destroy'
-  get 'friendships' => 'friendships#show'
+	post 'friends/create' => 'friendships#create'
+	post 'friends/destroy' => 'friendships#destroy'
+  get 'friends' => 'friendships#show'
 
 	#Routes for events
 	post 'events/create' => 'events#create'
