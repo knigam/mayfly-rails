@@ -21,6 +21,11 @@ class EventsController < ApplicationController
 		end
 	end
 
+	def show
+		event_list = current_user.invites.map{|i| {id: i.event.id, name: i.event.name, attending: i.attending, creator: i.creator}}
+	  return render :json => {:events => event_list}
+	end
+
 	private
 		def event_params
 		  params.require(:event).permit(:name, :description, :time, :location, :min, :max)

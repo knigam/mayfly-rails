@@ -33,10 +33,4 @@ class InvitesController < ApplicationController
 			return render :json => {:success => "false", :message => "Could not destroy event"}
 		end
 	end
-
-	def show
-		current_user.invites.each do |invite|
-			event = invite.event
-		end
-	end
 end

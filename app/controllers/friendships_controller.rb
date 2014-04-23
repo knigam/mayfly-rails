@@ -20,7 +20,7 @@ class FriendshipsController < ApplicationController
 	end
 	
 	def show
-    friends_list = current_user.friends.map{|f| {id: f.id, name: f.email}}
+    friends_list = current_user.friends.map{|f| {id: f.id, name: f.name}}
 		return render :json => {:friends => friends_list}
 	end
 end

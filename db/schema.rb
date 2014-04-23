@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20140412221855) do
     t.boolean  "attending"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "master",     default: false, null: false
+    t.boolean  "creator",    default: false, null: false
   end
 
   create_table "push_configurations", force: true do |t|
