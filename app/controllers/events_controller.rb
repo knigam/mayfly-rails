@@ -3,12 +3,20 @@ class EventsController < ApplicationController
 
 	def create
 		@event = current_user.events.build(event_params)
+		
+		# set the time
+		time = params[:time]
+		d = /:/ =~ time
+		hour = time[0... d]
+		min = time[d + 1 .. -1]
+		@event.time = Time.new.change(hour: hour, min: min)
+
 		if @event.save
-		  invite = current_user.invites.build(:event_id => @event.id, :attending => true, :master => true)
+		  invite = current_user.invites.build(:event_id => @event.id, :attending => true, :creator => true)
 			invite.save
-			return render :json => {:success => "true", :event_id => @event.id}
+			return render :json => {:success => true, :event_id => @event.id}
 		else
-			return render :json => {:success => "false", :message => "Could not save event"}
+			return render :json => {:success => false, :message => "Could not save event"}
 	  end	
 	end
 	
@@ -22,12 +30,13 @@ class EventsController < ApplicationController
 	end
 
 	def show
-		event_list = current_user.invites.map{|i| {id: i.event.id, name: i.event.name, attending: i.attending, creator: i.creator}}
-	  return render :json => {:events => event_list}
+		i = current_user.invites.find_by_event_id(params[:event_id])
+	  e = i.event
+		return render :json => {id: e.id, name: e.name, description: e.description, time: e.time, location: e.location, min: e.min, max: e.max, attending: i.attending, creator: i.creator}
 	end
 
 	private
 		def event_params
-		  params.require(:event).permit(:name, :description, :time, :location, :min, :max)
+		  params.require(:event).permit(:name, :description, :location, :min, :max)
 		end
 end
