@@ -32,7 +32,7 @@ class EventsController < ApplicationController
 	def show
 		i = current_user.invites.find_by_event_id(params[:event_id])
 	  e = i.event
-		users_attending = e.users.map{|o| {id: o.id, name: o.name}}
+		users_attending = Invite.where(event_id: e.id, attending: true).map{|o| {id: o.user.id, name: o.user.name}}
 		return render :json => {id: e.id, name: e.name, description: e.description, time: e.time, location: e.location, min: e.min, max: e.max, attending: i.attending, creator: i.creator, users_attending: users_attending}
 	end
 
