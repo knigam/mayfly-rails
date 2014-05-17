@@ -9,9 +9,9 @@ class RegistrationsController < Devise::RegistrationsController
       yield resource if block_given?
       if resource.active_for_authentication?
         sign_up(resource_name, resource)
-	return render :json => {:success => "true", :id => resource.id, :email => resource.email, :message => "User Created"}
+				return render :json => {:success => "true", :id => resource.id, :email => resource.email, :message => "User Created"}
       else
-	return render :json => {:success => "false", :error => "Signed up but inactive"}
+				return render :json => {:success => "false", :error => "Signed up but inactive"}
       end
     else
       clean_up_passwords resource
@@ -25,5 +25,6 @@ class RegistrationsController < Devise::RegistrationsController
 			return render :json => {:success => "true"}
 		else
 			return render :json => {:success => "false"}
+		end
 	end	
 end

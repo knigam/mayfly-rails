@@ -77,4 +77,10 @@ Mayfly::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  #mailer
+	config.action_mailer.default_url_options = { :host => 'mymayfly.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {:address => "localhost", :port => "1025"}
+	config.action_mailer.raise_delivery_errors = false
 end
