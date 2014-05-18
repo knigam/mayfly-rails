@@ -1,15 +1,19 @@
 class RegistrationsController < Devise::RegistrationsController
   skip_before_filter :verify_authenticity_token #, :only => :create
-  respond_to :json
+	before_filter :update_sanitized_params  
+	respond_to :json
+
+	def update_sanitized_params
+  	devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:password_confirmation, :email, :password, :name)}
+	end
 
   def create
     build_resource(sign_up_params)
-
     if resource.save
       yield resource if block_given?
       if resource.active_for_authentication?
         sign_up(resource_name, resource)
-				return render :json => {:success => "true", :id => resource.id, :email => resource.email, :message => "User Created"}
+				return render :json => {:success => "true", :id => resource.id, :email => resource.email,:name => resource.name, :message => "User Created"}
       else
 				return render :json => {:success => "false", :error => "Signed up but inactive"}
       end
