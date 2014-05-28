@@ -10,6 +10,13 @@ class InvitesController < ApplicationController
 			user = User.find(user_id)
 			user.invites.build(:event_id => @event.id, :attending => false, :creator => false)
 			user.save
+			user.devices.each do |d|
+				Push::MessageGcm.create(
+ 	  			app: 'Mayfly',
+     			device: d.reg_id.to_s,
+     			payload: { message: 'You have been invited to the event "' + @event.name + '"message='	},
+     			collapse_key: 'Invite')
+			end
 		end
 		return render :json => {:success => true, :event_id => @event.id, :users => @users}
 	end

@@ -21,6 +21,7 @@ Mayfly::Application.routes.draw do
 
 	#Routes for events
 	post 'events/create' => 'events#create'
+	post 'events/destroy' => 'events#destroy'
 	get 'event/:event_id' => 'events#show'
 
 	#Routes for invites

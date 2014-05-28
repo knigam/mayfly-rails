@@ -21,11 +21,11 @@ class FriendshipsController < ApplicationController
 	end
 
 	def destroy
-		@friendship = current_user.friendships.find(params[:id])
+		@friendship = current_user.friendships.find_by_friend_id(params[:id])
 		if @friendship.destroy
 			return render :json => {:success => true}
 		else
-			return render :json => {:success => false}
+			return render :json => {:success => false, :message => "Could not delete friend"}
 		end
 	end
 	

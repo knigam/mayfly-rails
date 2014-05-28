@@ -31,7 +31,8 @@ ActiveRecord::Schema.define(version: 20140412221855) do
   create_table "events", force: true do |t|
     t.string   "name",        null: false
     t.string   "description"
-    t.time     "time",        null: false
+    t.datetime "start_time",  null: false
+    t.datetime "end_time",    null: false
     t.string   "location",    null: false
     t.integer  "min"
     t.integer  "max"

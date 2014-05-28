@@ -51,3 +51,4 @@ gem 'unicorn'
 gem 'push-core'
 gem 'push-gcm'
 gem 'devise'
+gem 'whenever', :require => false
