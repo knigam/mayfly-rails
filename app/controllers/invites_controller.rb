@@ -37,7 +37,7 @@ class InvitesController < ApplicationController
 	end
 
 	def show
-  	event_list = current_user.invites.map{|i| {id: i.event.id, name: i.event.name, attending: i.attending, creator: i.creator}}
+  	event_list = current_user.invites.map{ |i| i if (i.event.active)}.compact.map{|i| {id: i.event.id, name: i.event.name, attending: i.attending, creator: i.creator}}
   	return render :json => {:events => event_list}
   end
 	

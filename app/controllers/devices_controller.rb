@@ -8,8 +8,10 @@ class DevicesController < ApplicationController
       return render :json => {:success => "true", :id => device.id, :message => "Device registered"}
     else
       device = Device.find_by reg_id: device.reg_id
-      if device.update(device_params)
-  	return render :json => {:success => "true", :id => device.id, :message => "Device registration updated"}
+      device.assign_attributes(device_params) 
+			device.user = current_user
+			if device.save
+  			return render :json => {:success => "true", :id => device.id, :message => "Device registration updated"}
       else
         return render :json => {:success => "false"}
       end
@@ -17,9 +19,11 @@ class DevicesController < ApplicationController
   end
   
   def update
-    device = current_user.devices.where(params[:reg_id]).first
+    device = Device.find_by reg_id: device.reg_id
+		device.assign_attributes(device_params)
+		device.user = current_user
 
-    if device.update(device_params)
+    if device.save
       return render :json => {:success => "true", :id => device.id, :message => "Device registration updated"}
     else
       return render :json => {:success => "false"}

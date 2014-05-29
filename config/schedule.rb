@@ -19,5 +19,9 @@
 
 # Learn more: http://github.com/javan/whenever
 every 1.hour do
+	rake "event:deactivate", :environment => 'development'
+end
+
+every 1.day, :at => '3am' do
 	rake "event:clean", :environment => 'development'
 end

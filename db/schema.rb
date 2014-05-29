@@ -29,13 +29,15 @@ ActiveRecord::Schema.define(version: 20140412221855) do
   add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
 
   create_table "events", force: true do |t|
-    t.string   "name",        null: false
+    t.string   "name",                        null: false
     t.string   "description"
-    t.datetime "start_time",  null: false
-    t.datetime "end_time",    null: false
-    t.string   "location",    null: false
+    t.datetime "start_time",                  null: false
+    t.datetime "end_time",                    null: false
+    t.string   "location",                    null: false
     t.integer  "min"
     t.integer  "max"
+    t.boolean  "open",        default: false, null: false
+    t.boolean  "active",      default: true,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

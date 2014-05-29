@@ -8,6 +8,8 @@ class CreateEvents < ActiveRecord::Migration
       t.string :location, :null => false
       t.integer :min
       t.integer :max
+			t.boolean :open, :null => false, :default => false
+			t.boolean :active, :null => false, :default => true
       t.timestamps
     end
   end

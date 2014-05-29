@@ -50,12 +50,16 @@ class EventsController < ApplicationController
 	def show
 		i = current_user.invites.find_by_event_id(params[:event_id])
 	  e = i.event
+		if e.end_time < Time.now
+			e.active = false
+			e.save
+		end
 		users_attending = Invite.where(event_id: e.id, attending: true).map{|o| {id: o.user.id, name: o.user.name}}
-		return render :json => {id: e.id, name: e.name, description: e.description, start_time: e.start_time.to_s(:short), end_time: e.end_time.to_s(:short), location: e.location, min: e.min, max: e.max, attending: i.attending, creator: i.creator, users_attending: users_attending}
+		return render :json => {active: e.active, id: e.id, name: e.name, description: e.description, start_time: e.start_time.to_s(:short), end_time: e.end_time.to_s(:short), location: e.location, min: e.min, max: e.max, attending: i.attending, creator: i.creator, open: e.open, users_attending: users_attending}
 	end
 
 	private
 		def event_params
-		  params.require(:event).permit(:name, :description, :location, :min, :max)
+		  params.require(:event).permit(:name, :description, :location, :min, :max, :open)
 		end
 end
