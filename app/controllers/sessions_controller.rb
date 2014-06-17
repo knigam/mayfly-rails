@@ -18,6 +18,6 @@ class SessionsController < Devise::SessionsController
 
   def failure
     warden.custom_failure!
-    return render :json => {:success => "false", :error => "Incorrect username or password"}
+    return render :json => {:success => "false", :message => "Incorrect username or password"}
   end 
 end

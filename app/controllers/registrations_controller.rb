@@ -15,11 +15,11 @@ class RegistrationsController < Devise::RegistrationsController
         sign_up(resource_name, resource)
 				return render :json => {:success => "true", :id => resource.id, :email => resource.email,:name => resource.name, :message => "User Created"}
       else
-				return render :json => {:success => "false", :error => "Signed up but inactive"}
+				return render :json => {:success => "false", :message => "Signed up but inactive"}
       end
     else
       clean_up_passwords resource
-      return render :json => {:success => "false", :error => "Username is already in use"}
+      return render :json => {:success => "false", :message => "Username is already in use"}
     end
   end
   

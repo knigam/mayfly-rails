@@ -30,7 +30,8 @@ class InvitesController < ApplicationController
 			#if event.invites.where(attending: true).count == 0
 			#	event.destroy
 			#end
-			return render :json => {:success => true}
+			users_attending = Invite.where(event_id: @invite.event.id, attending: true).map{|o| {id: o.user.id, name: o.user.name}}
+			return render :json => {:success => true, :users_attending => users_attending}
 		else
 			return render :json => {:success => false, :message => "Cannot update invite status"}
 		end

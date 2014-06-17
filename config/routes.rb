@@ -17,6 +17,8 @@ Mayfly::Application.routes.draw do
 	#Routes for friendships
 	post 'friends/create' => 'friendships#create'
 	post 'friends/destroy' => 'friendships#destroy'
+	post 'friends/create_from_event' => 'friendships#create_from_event'
+	post 'friends/bulk_create' => 'friendships#bulk_create'
   get 'friends' => 'friendships#show'
 
 	#Routes for events
