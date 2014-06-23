@@ -24,12 +24,10 @@ class InvitesController < ApplicationController
 	def update
 		@invite = current_user.invites.find_by_event_id(params[:event_id])
 		@invite.attending = params[:attending]
+		if @invite.attending == true && @invite.event.invites.where(attending: true).count >= @invite.event.max
+			return render :json => {:success => false, :message => "Event max limit reached"}
+		end
 		if @invite.save
-		#if @invite.update(params[:attending])
-			#event = @invite.event
-			#if event.invites.where(attending: true).count == 0
-			#	event.destroy
-			#end
 			users_attending = Invite.where(event_id: @invite.event.id, attending: true).map{|o| {id: o.user.id, name: o.user.name}}
 			return render :json => {:success => true, :users_attending => users_attending}
 		else
@@ -38,7 +36,7 @@ class InvitesController < ApplicationController
 	end
 
 	def show
-  	event_list = current_user.invites.map{ |i| i if (i.event.active)}.compact.map{|i| {id: i.event.id, name: i.event.name, attending: i.attending, creator: i.creator}}
+  	event_list = current_user.invites.map{ |i| i if (i.event.active && (i.attending || i.event.invites.where(attending: true).count < i.event.max))}.compact.map{|i| {id: i.event.id, name: i.event.name, attending: i.attending, creator: i.creator}}
   	return render :json => {:events => event_list}
   end
 	
