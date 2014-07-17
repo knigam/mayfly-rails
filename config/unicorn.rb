@@ -21,13 +21,13 @@ worker_processes 4
 
 # Help ensure your application will always spawn in the symlinked
 # "current" directory that Capistrano sets up.
-APP_PATH = "/var/www/mayfly-devel"
+APP_PATH = "/var/www/mayfly_staging"
 working_directory APP_PATH # available in 0.94.0+
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
 listen APP_PATH + "/tmp/pids/.unicorn.sock", :backlog => 64
-listen 8080, :tcp_nopush => true
+listen 3000, :tcp_nopush => true
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
