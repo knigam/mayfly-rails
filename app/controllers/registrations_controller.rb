@@ -13,22 +13,22 @@ class RegistrationsController < Devise::RegistrationsController
       yield resource if block_given?
       if resource.active_for_authentication?
         sign_up(resource_name, resource)
-				return render :json => {:success => "true", :id => resource.id, :email => resource.email,:name => resource.name, :message => "User Created"}
+				return render :json => {:success => true, :id => resource.id, :email => resource.email,:name => resource.name, :message => "User Created"}
       else
-				return render :json => {:success => "false", :message => "Signed up but inactive"}
+				return render :json => {:success => false, :message => "Signed up but inactive"}
       end
     else
       clean_up_passwords resource
-      return render :json => {:success => "false", :message => "Username is already in use"}
+      return render :json => {:success => false, :message => "Username is already in use"}
     end
   end
   
   def destroy
 		user = current_user
 		if user.destroy
-			return render :json => {:success => "true"}
+			return render :json => {:success => true}
 		else
-			return render :json => {:success => "false"}
+			return render :json => {:success => false}
 		end
 	end	
 end

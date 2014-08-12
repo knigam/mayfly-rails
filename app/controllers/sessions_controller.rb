@@ -8,16 +8,16 @@ class SessionsController < Devise::SessionsController
     yield resource if block_given?
     sign_in(resource_name, resource)
     cookie = User.serialize_into_cookie(resource)
-    return render :json => {:success => "true", :id => resource.id, :email => resource.email, :message => "Signed in"}
+    return render :json => {:success => true, :id => resource.id, :email => resource.email, :message => "Signed in"}
   end
 
   def destroy
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
-    render :json => {:success => "true"}
+    render :json => {:success => true}
   end
 
   def failure
     warden.custom_failure!
-    return render :json => {:success => "false", :message => "Incorrect username or password"}
+    return render :json => {:success => false, :message => "Incorrect username or password"}
   end 
 end
